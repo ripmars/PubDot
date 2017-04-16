@@ -1,19 +1,19 @@
 # Kubernetes install log
-##disable SeLinux
+## disable SeLinux
     setenforce 0
     sed -i "s/enable/disabled/g" selinux
-##Set Hostname
+## Set Hostname
     echo "hostname" > /etc/hostname
-##不启动图形化
-###CentOS 7
+## 不启动图形化
+### CentOS 7
     systemctl get-default   #查看当前状态
     systemctl set-default multi-user.target     #设置不以图形化界面启动
-###CentOS 6
+### CentOS 6
     vim /etc/inittab    
     id:3:initdefault:   
 
-##升级内核
-###使用elrepo源升级内核
+## 升级内核
+### 使用elrepo源升级内核
 
     rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org
     rpm -Uvh http://www.elrepo.org/elrepo-release-7.0-2.el7.elrepo.noarch.rpm
@@ -29,7 +29,7 @@
   
 ![](media/14905466315419.jpg)
 
-###源码编译方式
+### 源码编译方式
 
     yum install -y kernel-devel gcc gcc-c++ bc openssl  openssh openssl-devel
     wget -c https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-4.9.tar.xz
