@@ -18,7 +18,7 @@
     rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org
     rpm -Uvh http://www.elrepo.org/elrepo-release-7.0-2.el7.elrepo.noarch.rpm
     yum --enablerepo=elrepo-kernel install  kernel-ml-devel kernel-ml
-    awk -F\' '$1=="menuentry " {print $2}' /etc/grub2.cfg
+    awk -F ' '$1=="menuentry " {print $2}' /etc/grub2.cfg
     grub2-set-default 0
 如果无法访问外网，可以将kernel文件下载使用`rpm`方式安装,可以先去[http://elrepo.org/linux/kernel/el7/x86_64/RPMS/] 下载
 
