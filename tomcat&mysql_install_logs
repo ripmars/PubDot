@@ -1,6 +1,6 @@
 # MySQL以及Tomcat安装
-##Tomcat安装
-###安装配置jdk
+## Tomcat安装
+### 安装配置jdk
 
 tomcat运行需要JDK支持，所以前提要安装且配置好jdk.
 
@@ -14,7 +14,7 @@ tar -zxvf jdk-7u80-linux-x64.tar.gz
 
 
 
-###安装配置tomcat
+### 安装配置tomcat
 
 解压tomcat压缩包
 
@@ -42,12 +42,12 @@ export CATALINA_BASE=$CATALINA_HOME
 export PATH=$CATALINA_HOME/bin:$PATH
 ```
  
-###启动Tomcat
+### 启动Tomcat
  /usr/local/tomcat/bin/startup.sh start 
 netstat -nltp 检查8080端口是否处于监听状态
 
 
-##安装MySQL 5.6
+## 安装MySQL 5.6
 
 ### 设置安装源
 
