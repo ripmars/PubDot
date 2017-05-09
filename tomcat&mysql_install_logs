@@ -9,6 +9,7 @@ tomcat运行需要JDK支持，所以前提要安装且配置好jdk.
 ```
 cd /usr/local/
 tar -zxvf jdk-7u80-linux-x64.tar.gz
+
 ```
 解压成功后会有一个 jdk1.7.0_80 的文件夹
 
