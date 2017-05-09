@@ -1,0 +1,106 @@
+# MySQL以及Tomcat安装
+##Tomcat安装
+###安装配置jdk
+
+tomcat运行需要JDK支持，所以前提要安装且配置好jdk.
+
+解压JDK压缩包
+
+```
+cd /usr/local/
+tar -zxvf jdk-7u80-linux-x64.tar.gz
+```
+解压成功后会有一个 jdk1.7.0_80 的文件夹
+
+
+
+###安装配置tomcat
+
+解压tomcat压缩包
+
+```
+cd /usr/local/
+tar -zxvf apache-tomcat-7.0.73.tar.gz
+ln -s /usr/local/apache-tomcat-7.0.73   tomcat
+```
+解压成功后得到 apache-tomcat-7.0.7 文件夹,配置/etc/profile文件,定义JAVA_HOME等信息。
+ 
+```
+unset i
+unset -f pathmunge
+export HISTTIMEFORMAT="[%Y-%m-%d %H:%M:%S] [`who am i 2>/dev/null | awk '{print $NF}'|sed -e 's/[()]//g'`] "
+export HISTFILESIZE=10000000
+export HISTSIZE=1000000
+export PROMPT_COMMAND="history -a"
+export gzhcenv=onlinetest
+export JAVA_HOME=/usr/local/jdk1.7.0_80
+export JRE_HOME=/usr/local/jdk1.7.0_80/jre
+export CLASSPATH=.:$JAVA_HOME/lib:$JRE_HOME/lib:$CLASSPATH
+export PATH=$JAVA_HOME/bin:$JRE_HOME/bin:$PATH
+export CATALINA_HOME=/usr/local/tomcat
+export CATALINA_BASE=$CATALINA_HOME
+export PATH=$CATALINA_HOME/bin:$PATH
+```
+ 
+###启动Tomcat
+ /usr/local/tomcat/bin/startup.sh start 
+netstat -nltp 检查8080端口是否处于监听状态
+
+
+##安装MySQL 5.6
+
+### 设置安装源
+
+```
+[root@snails ~]# wget http://repo.mysql.com/mysql57-community-release-el6-8.noarch.rpm
+[root@snails ~]# rpm -ivh mysql57-community-release-el6-8.noarch.rpm
+[root@snails ~]# ls -1 /etc/yum.repos.d/mysql-community*
+[root@snails ~]# yum repolist all | grep mysql
+[root@snails ~]# vi /etc/yum.repos.d/mysql-community.repo
+```
+`将[mysql56-community]的enabled设置为１,[mysql57-community]的enabled设置为0 `
+
+```
+[root@snails ~]# yum repolist enabled | grep mysql
+mysql-connectors-community MySQL Connectors Community                         21
+mysql-tools-community      MySQL Tools Community                              37
+mysql56-community          MySQL 5.6 Community Server                        265
+```
+注意:
+如果不使用5.7 或者其他任何版本，只能有一个是 enabled=1的，其他的都得enabled=0。
+
+### 安装MySQL
+```
+yum -y install mysql-server mysql
+```
+### 启动服务
+```
+service mysqld start
+```
+### 检查服务是否启动
+```
+netstat -ano |grep 3306
+```
+`tcp        0      0 0.0.0.0:3306                0.0.0.0:*                   LISTEN      off (0.00/0/0)`
+
+### 修改root密码
+
+```
+mysql -u root
+mysql> use mysql;
+mysql> update user set password=PASSWORD("uSed4l0g1n") where User='root';
+mysql> flush privileges;
+mysql> quit
+```
+```
+CREATE USER 'sqladmin'@'%' IDENTIFIED BY 'gzHC@2017';
+GRANT ALL PRIVILEGES ON *.* TO 'sqladmin'@'%'IDENTIFIED BY 'gzHC@2017' WITH GRANT OPTION;
+flush  privileges;
+show grants for 'sqladmin'@'%';
+select User,Host from mysql.user;
+```
+
+
+
+
+
